@@ -1,0 +1,44 @@
+install Docker
+
+sudo apt update
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+sudo apt update
+apt-cache policy docker-ce
+sudo apt install docker-ce
+sudo systemctl status docker
+
+
+install Docker-compose
+
+sudo curl -L "https://github.com/docker/compose/releases/download/1.XX.X/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+sudo chmod +x /usr/local/bin/docker-compose
+
+docker-compose --version
+
+
+
+Start jenkins container
+
+docker-compose up -d
+
+verify
+
+docker-compose ps
+
+ Name                Command               State                 Ports              
+------------------------------------------------------------------------------------
+jenkins   /sbin/tini -- /usr/local/b ...   Up      50000/tcp, 0.0.0.0:8080->8080/tcp
+
+user@ThinkPad-E480:~/docker/jenkins$ sudo docker exec -it jenkins bash
+jenkins@6c5a8b4c7789:/$ cd var/jenkins_home/secrets
+jenkins@6c5a8b4c7789:~/secrets$ cat initialAdminPassword
+34286f5dfafb4632bb15e7c0536d8164
+
+
+
+
+
+
